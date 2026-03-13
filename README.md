@@ -15,6 +15,62 @@ La aplicación fue desarrollada usando **Node.js, Express y SQLite** y permite r
 * SQLite3
 * Postman (para pruebas de API)
 * draw.io (para diagrama ER)
+* Render (para despliegue en la nube)
+
+---
+
+# 🌐 Deploy en Render
+
+La API está desplegada y disponible públicamente en:
+
+```
+https://colegio-api-2.onrender.com
+```
+
+### Endpoints en producción
+
+| Recurso      | URL                                              |
+| ------------ | ------------------------------------------------ |
+| Raíz         | https://colegio-api-2.onrender.com               |
+| Estudiantes  | https://colegio-api-2.onrender.com/estudiantes   |
+| Profesores   | https://colegio-api-2.onrender.com/profesores    |
+| Materias     | https://colegio-api-2.onrender.com/materias      |
+| Notas        | https://colegio-api-2.onrender.com/notas         |
+
+### Ejemplo de petición en producción
+
+**POST** `https://colegio-api-2.onrender.com/estudiantes`
+
+```json
+{
+  "nombre": "Diego Bermudez",
+  "email": "Diego@colegio.com",
+  "grado": "10A",
+  "edad": 15
+}
+```
+
+**Respuesta exitosa (201):**
+
+```json
+{
+  "success": true,
+  "message": "Estudiante creado correctamente",
+  "data": {
+    "id": 1,
+    "nombre": "Diego Bermudez",
+    "email": "Diego@colegio.com",
+    "grado": "10A",
+    "edad": 15
+  }
+}
+```
+
+### Notas del deploy
+
+* El servidor utiliza el puerto asignado por Render mediante `process.env.PORT`
+* La base de datos SQLite se genera automáticamente al iniciar el servidor
+* El campo `email` es único — no se pueden registrar dos usuarios con el mismo correo
 
 ---
 
