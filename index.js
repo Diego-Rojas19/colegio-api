@@ -1,6 +1,6 @@
 // index.js — Servidor principal API Colegio
 
-require('dotenv').config(); // ← AGREGADO
+require('dotenv').config();
 
 const express = require('express');
 const app = express();
@@ -21,28 +21,35 @@ app.get('/', (req, res) => {
     success: true,
     message: '🏫 API REST - Sistema de Colegio | SENA Proyecto 5',
     version: '2.0.0 - SQLite',
-    endpoints: { /* ... */ }
+    endpoints: {
+      estudiantes: '/estudiantes',
+      profesores: '/profesores',
+      materias: '/materias',
+      notas: '/notas'
+    }
   });
 });
 
 // ─── Manejo de rutas no encontradas ───────────────────────
 app.use((req, res) => {
-  res.status(404).json({ success: false, message: 'Ruta no encontrada' });
+  res.status(404).json({
+    success: false,
+    message: 'Ruta no encontrada'
+  });
 });
 
 // ─── Manejo global de errores ─────────────────────────────
 app.use((err, req, res, next) => {
   console.error('Error:', err.stack);
-  res.status(500).json({ success: false, message: 'Error interno del servidor' });
+  res.status(500).json({
+    success: false,
+    message: 'Error interno del servidor'
+  });
 });
 
 // ─── Puerto desde variable de entorno ─────────────────────
-const PORT = process.env.PORT || 3000; // ← MODIFICADO
-const server = app.listen(PORT, () =>
-  console.log(`🏫 API Colegio corriendo en http://localhost:${server.address().port}`)
-);
-```
+const PORT = process.env.PORT || 3000;
 
-Y en tu archivo `.env` agregas:
-```
-PORT=3000
+app.listen(PORT, () => {
+  console.log(`🏫 API Colegio corriendo en http://localhost:${PORT}`);
+});
